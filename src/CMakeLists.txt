@@ -19,3 +19,13 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+set(libAMPLE-Protocols-C_SRC "${CMAKE_CURRENT_LIST_DIR}/I2cBus.generic.generic.c;${libAMPLE-Protocols-C_SRC}")
+
+set(libAMPLE-Protocols-C_SRC "$<$<PLATFORM_ID:Darwin>:${CMAKE_CURRENT_LIST_DIR}/I2cBus.generic.darwin.c>;${libAMPLE-Protocols-C_SRC}")
+
+set(libAMPLE-Protocols-C_SRC "$<$<PLATFORM_ID:FreeBSD>:${CMAKE_CURRENT_LIST_DIR}/I2cBus.generic.freebsd.c>;${libAMPLE-Protocols-C_SRC}")
+
+set(libAMPLE-Protocols-C_SRC "$<$<PLATFORM_ID:Linux>:${CMAKE_CURRENT_LIST_DIR}/I2cBus.generic.linux.c>;${libAMPLE-Protocols-C_SRC}")
+
+set(libAMPLE-Protocols-C_SRC "$<$<PLATFORM_ID:Windows>:${CMAKE_CURRENT_LIST_DIR}/I2cBus.generic.windows.c>;${libAMPLE-Protocols-C_SRC}")

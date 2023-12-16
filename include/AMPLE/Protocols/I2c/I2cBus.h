@@ -23,4 +23,61 @@
 #ifndef __AMPLE__PROTOCOLS__I2C__I2CBUS__H__
 #define __AMPLE__PROTOCOLS__I2C__I2CBUS__H__
 
+#include <stdint.h>
+
+#define AMPLE_PROTOCOLS_I2C_I2CBUS_SUCCESS(Result) (0 <= Result)
+#if defined(__linux__) || defined(__FreeBSD__)
+    #define AMPLE_PROTOCOLS_I2C_I2CBUS_DEFAULT {    \
+        ._initialized = 0,                          \
+        ._busId = 0,                                \
+        ._fd = -1                                   \
+    }
+#else
+    #define AMPLE_PROTOCOLS_I2C_I2CBUS_DEFAULT {    \
+        ._initialized = 0,                          \
+        ._busId = 0                                 \
+    }
+#endif
+
+struct AMPLE_Protocols_I2c_I2cBus_t
+{
+    _Bool _initialized;
+    const uint8_t _busId;
+#if defined(__linux__) || defined(__FreeBSD__)
+    int _fd;
+#endif
+};
+
+enum AMPLE_Protocols_I2c_I2cBus_Create_ReturnValues
+{
+    AMPLE_Protocols_I2c_I2cBus_Create_Fail = -1,
+    AMPLE_Protocols_I2c_I2cBus_Create_Success = 0
+};
+
+enum AMPLE_Protocols_I2c_I2cBus_Duplicate_ReturnValues
+{
+    AMPLE_Protocols_I2c_I2cBus_Duplicate_Fail = -1,
+    AMPLE_Protocols_I2c_I2cBus_Duplicate_Success = 0
+};
+
+enum AMPLE_Protocols_I2c_I2cBus_GetBusId_ReturnValues
+{
+    AMPLE_Protocols_I2c_I2cBus_GetBusId_Fail = -1,
+    AMPLE_Protocols_I2c_I2cBus_GetBusId_Success = 0
+};
+
+enum AMPLE_Protocols_I2c_I2cBus_Create_ReturnValues AMPLE_Protocols_I2c_I2cBus_Create(
+    struct AMPLE_Protocols_I2c_I2cBus_t *const p_i2cBus,
+    const uint8_t busId);
+
+enum AMPLE_Protocols_I2c_I2cBus_Duplicate_ReturnValues AMPLE_Protocols_I2c_I2cBus_Duplicate(
+    struct AMPLE_Protocols_I2c_I2cBus_t *const p_i2cBus,
+    const struct AMPLE_Protocols_I2c_I2cBus_t *const p_object);
+
+enum AMPLE_Protocols_I2c_I2cBus_GetBusId_ReturnValues AMPLE_Protocols_I2c_I2cBus_GetBusId(
+    const struct AMPLE_Protocols_I2c_I2cBus_t *const p_i2cBus,
+    uint8_t *const p_busId);
+
+void AMPLE_Protocols_I2c_I2cBus_Destroy(struct AMPLE_Protocols_I2c_I2cBus_t *const p_i2cBus);
+
 #endif//__AMPLE__PROTOCOLS__I2C__I2CBUS__H__
