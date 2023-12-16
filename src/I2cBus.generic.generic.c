@@ -29,5 +29,18 @@ enum AMPLE_Protocols_I2c_I2cBus_GetBusId_ReturnValues AMPLE_Protocols_I2c_I2cBus
     const struct AMPLE_Protocols_I2c_I2cBus_t *const p_i2cBus,
     uint8_t *const p_busId)
 {
-    return AMPLE_Protocols_I2c_I2cBus_GetBusId_Fail;
+    // Guard
+    _Bool nullI2cBus = (p_i2cBus == (struct AMPLE_Protocols_I2c_I2cBus_t *const)NULL);
+    _Bool nullBusId = (p_busId == (uint8_t *const)NULL);
+    _Bool invalidArguments = (nullI2cBus || nullBusId);
+    if (invalidArguments)
+    {
+        return AMPLE_Protocols_I2c_I2cBus_GetBusId_Fail;
+    }
+
+    // Logic
+    *p_busId = p_i2cBus->_busId;
+
+    // Result
+    return AMPLE_Protocols_I2c_I2cBus_GetBusId_Success;
 }
